@@ -1,0 +1,11 @@
+{
+    "files": [
+        "typescript/member.ts"
+    ],
+    "compilerOptions": {
+        "removeComments": true,
+        "outDir": "scripts",
+        "target": "es2015",
+        "watch": true
+    } 
+}
