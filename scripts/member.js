@@ -23,6 +23,7 @@ function clearForm() {
     }
 }
 function validateForm() {
+    clearForm();
     let isAllDataValid = true;
     if (isEmpty("email")) {
         isAllDataValid = false;
@@ -71,15 +72,13 @@ function isEmpty(elemId) {
     return false;
 }
 function isValidPhone(phone) {
-    if (phone.trim().length != 12) {
+    let elem = document.getElementById(phone);
+    if (elem.value.trim().length != 12) {
         return false;
     }
-    if (phone.charAt(3) != "-" || phone.charAt(7) != "-") {
-        return false;
-    }
-    phone = phone.replace(/-/g, "");
-    for (let i = 0; i < phone.length; i++) {
-        if (!Number.isInteger(parseInt(phone.charAt(i)))) {
+    elem.value = elem.value.replace(/-/g, "");
+    for (let i = 0; i < elem.value.length; i++) {
+        if (!Number.isInteger(parseInt(elem.value.charAt(i)))) {
             return false;
         }
     }
