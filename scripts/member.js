@@ -42,15 +42,25 @@ function validateForm() {
         let emailSpan = document.getElementById("email").nextElementSibling;
         displayError(emailSpan, "Email is required");
     }
-    if (isEmpty("password")) {
-        isAllDataValid = false;
-        let passwordSpan = document.getElementById("password").nextElementSibling;
-        displayError(passwordSpan, "password is required");
-    }
     if (isEmpty("verify")) {
         isAllDataValid = false;
         let verifyPasswordSpan = document.getElementById("verify").nextElementSibling;
         displayError(verifyPasswordSpan, "Password verification is required");
+    }
+    if (isDifferent()) {
+        isAllDataValid = false;
+        let verifyPasswordSpan = document.getElementById("verify").nextElementSibling;
+        displayError(verifyPasswordSpan, "Passwords must match");
+    }
+    if (lessThanSix()) {
+        isAllDataValid = false;
+        let passwordSpan = document.getElementById("password").nextElementSibling;
+        displayError(passwordSpan, "password needs to be at least six characters");
+    }
+    if (isEmpty("password")) {
+        isAllDataValid = false;
+        let passwordSpan = document.getElementById("password").nextElementSibling;
+        displayError(passwordSpan, "password is required");
     }
     let corporate = document.querySelector("#corporate");
     if (corporate.checked) {
@@ -107,4 +117,19 @@ function isValidPhone(phone) {
 function displayError(targetElement, errMsg) {
     targetElement.innerText = errMsg;
     targetElement.style.color = "red";
+}
+function isDifferent() {
+    let password = document.getElementById("password");
+    let verify = document.getElementById("verify");
+    if (password.value != verify.value) {
+        return true;
+    }
+    return false;
+}
+function lessThanSix() {
+    let password = document.getElementById("password");
+    if (password.value.length >= 6) {
+        return false;
+    }
+    return true;
 }

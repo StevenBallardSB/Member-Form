@@ -62,15 +62,25 @@ function validateForm(){
         let emailSpan = <HTMLElement>document.getElementById("email").nextElementSibling;
         displayError(emailSpan, "Email is required")
     }
-    if (isEmpty("password")) {
-        isAllDataValid = false;
-        let passwordSpan = <HTMLElement>document.getElementById("password").nextElementSibling;
-        displayError(passwordSpan, "password is required")
-    }
     if (isEmpty("verify")) {
         isAllDataValid = false;
         let verifyPasswordSpan = <HTMLElement>document.getElementById("verify").nextElementSibling;
         displayError(verifyPasswordSpan, "Password verification is required")
+    }
+    if (isDifferent()){
+        isAllDataValid = false;
+        let verifyPasswordSpan = <HTMLElement>document.getElementById("verify").nextElementSibling;
+        displayError(verifyPasswordSpan, "Passwords must match")
+    }
+    if (lessThanSix()){
+        isAllDataValid = false;
+        let passwordSpan = <HTMLElement>document.getElementById("password").nextElementSibling;
+        displayError(passwordSpan, "password needs to be at least six characters")
+    }
+    if (isEmpty("password")) {
+        isAllDataValid = false;
+        let passwordSpan = <HTMLElement>document.getElementById("password").nextElementSibling;
+        displayError(passwordSpan, "password is required")
     }
     let corporate = document.querySelector("#corporate") as HTMLInputElement
     if(corporate.checked){
@@ -152,4 +162,21 @@ function displayError(targetElement:HTMLElement, errMsg:string){
     targetElement.innerText = errMsg;
     targetElement.style.color = "red";
 
+}
+
+function isDifferent():boolean{
+    let password = document.getElementById("password") as HTMLInputElement;
+    let verify = document.getElementById("verify") as HTMLInputElement;
+    if (password.value != verify.value) {
+        return true;
+    }
+    return false;
+}
+
+function lessThanSix():boolean{
+    let password = document.getElementById("password") as HTMLInputElement;
+    if (password.value.length >= 6){
+        return false;
+    }
+    return true;
 }
