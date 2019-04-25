@@ -17,7 +17,20 @@ window.onload = function(){
 }
 
 function toggleCompanyName() {
-    alert("it got toggled!");
+    let corporate = document.getElementById("corporate") as HTMLInputElement;
+    if(corporate.checked){
+        let companyName = document.getElementById("company_name") as HTMLInputElement;
+        companyName.disabled = false
+        let companySpan = <HTMLElement>document.getElementById("company_name").nextElementSibling;
+        displayError(companySpan, "*")
+    }
+    else{
+        let companyName = document.getElementById("company_name") as HTMLInputElement;
+        companyName.disabled = true
+        let companySpan = <HTMLElement>document.getElementById("company_name").nextElementSibling;
+        displayError(companySpan, "")
+    }
+   
 }
 
 /**
@@ -37,7 +50,9 @@ function clearForm(){
         companyName.innerHTML = ""; 
     }
 }
-
+/**
+ * Checks to see if the entire form is valid
+ */
 function validateForm(){
     clearForm();
     let isAllDataValid = true;
@@ -56,6 +71,14 @@ function validateForm(){
         isAllDataValid = false;
         let verifyPasswordSpan = <HTMLElement>document.getElementById("verify").nextElementSibling;
         displayError(verifyPasswordSpan, "Password verification is required")
+    }
+    let corporate = document.querySelector("#corporate") as HTMLInputElement
+    if(corporate.checked){
+        if (isEmpty("company_name")){
+            isAllDataValid = false;
+            let companySpan = <HTMLElement>document.getElementById("company_name").nextElementSibling;
+            displayError(companySpan, "Company name is required");
+        }
     }
     if (isEmpty("first_name")) {
         isAllDataValid = false;

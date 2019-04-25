@@ -9,7 +9,19 @@ window.onload = function () {
     indRadioButton.onchange = toggleCompanyName;
 };
 function toggleCompanyName() {
-    alert("it got toggled!");
+    let corporate = document.getElementById("corporate");
+    if (corporate.checked) {
+        let companyName = document.getElementById("company_name");
+        companyName.disabled = false;
+        let companySpan = document.getElementById("company_name").nextElementSibling;
+        displayError(companySpan, "*");
+    }
+    else {
+        let companyName = document.getElementById("company_name");
+        companyName.disabled = true;
+        let companySpan = document.getElementById("company_name").nextElementSibling;
+        displayError(companySpan, "");
+    }
 }
 function clearForm() {
     let spanElements = document.querySelectorAll("#member_form > fieldset > span");
@@ -39,6 +51,14 @@ function validateForm() {
         isAllDataValid = false;
         let verifyPasswordSpan = document.getElementById("verify").nextElementSibling;
         displayError(verifyPasswordSpan, "Password verification is required");
+    }
+    let corporate = document.querySelector("#corporate");
+    if (corporate.checked) {
+        if (isEmpty("company_name")) {
+            isAllDataValid = false;
+            let companySpan = document.getElementById("company_name").nextElementSibling;
+            displayError(companySpan, "Company name is required");
+        }
     }
     if (isEmpty("first_name")) {
         isAllDataValid = false;
